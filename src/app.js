@@ -22,8 +22,13 @@ app.use(morgan(morganOption))
 app.use(helmet())
 app.use(cors())
 
-app.get('/', (req,res)=>{
+app.get('/', (req,res)=>{//run when acessed home, on react this runs for "return fetch('http://localhost:8000').then(result => result.json())""
   commentService.getAllComments(knexInstance).then(result => {res.send(result)})
+})
+
+app.post('/comments', (req, res) =>{
+  commentService.insertComment(knexInstance, req.body)//req.body = information that was sent over in comments-service.js.postComments in the react app
+  .then(result => result.json())
 })
 
 app.use(function errorHandler(error,req,res,next){
