@@ -27,8 +27,12 @@ app.get('/', (req,res)=>{//run when acessed home, on react this runs for "return
 })
 
 app.post('/comments', (req, res) =>{
-  commentService.insertComment(knexInstance, req.body)//req.body = information that was sent over in comments-service.js.postComments in the react app
-  .then(result => result.json())
+  console.log(req.body)
+  commentService.insertComment(knexInstance, req.body)//req.body = information that was sent over in comments-service.js.postComments in the react apps
+  .then(result =>{
+    result.json()
+  })
+  
 })
 
 app.use(function errorHandler(error,req,res,next){

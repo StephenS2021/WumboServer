@@ -12,10 +12,14 @@ const CommentService = {
     },
 
     insertComment(knex, comment){
+        console.log(comment)
         return knex.insert(comment)
         .into('comments')
         .returning('*')
-        .then(data => data[0])
+        .then(data =>{
+            console.log(data)
+            data[0]
+        })
     },
 
     deleteComment(knex, id){
