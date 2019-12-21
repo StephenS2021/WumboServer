@@ -17,8 +17,7 @@ const CommentService = {
         .into('comments')
         .returning('*')
         .then(data =>{
-            console.log(data)
-            data[0]
+            return data[0]
         })
     },
 

@@ -6,6 +6,7 @@ const cors = require('cors')
 const helmet = require('helmet')
 const { NODE_ENV, PORT } = require('./config')
 const commentService = require('./comments-service')
+const jsonParser = express.json()
 
 const knexInstance = knex({
   client: 'pg',
@@ -26,11 +27,10 @@ app.get('/', (req,res)=>{//run when acessed home, on react this runs for "return
   commentService.getAllComments(knexInstance).then(result => {res.send(result)})
 })
 
-app.post('/comments', (req, res) =>{
-  console.log(req.body)
+app.post('/comments', jsonParser, (req, res) =>{
   commentService.insertComment(knexInstance, req.body)//req.body = information that was sent over in comments-service.js.postComments in the react apps
   .then(result =>{
-    result.json()
+    res.status(201).json(result)
   })
   
 })
